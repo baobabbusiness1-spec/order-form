@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Baobab Business – Order Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#fbf7eb;--sheet:#fbf7eb;--ink:#172312;--muted:#52614b;--green:#1f3d16;--gold:#b98410;--line:#cfc6a8;--field:#fffdf5}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 "Public Sans",system-ui,sans-serif}
+.sheet{max-width:820px;margin:16px auto;background:var(--sheet);padding:32px clamp(16px,5vw,44px);border-top:6px solid var(--gold)}
+h1,h2,.mark{font-family:Fraunces,Georgia,serif;color:var(--green);margin:0}
+header{display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding-bottom:16px;border-bottom:2px solid var(--green)}
+.logo{display:block;width:230px;max-width:60%;height:auto;background:#fbf7eb;padding:4px 8px;border-radius:3px}
+.mark{font-size:28px;line-height:1.1}
+.sub{color:var(--muted);font-size:13px}
+.ref{margin-left:auto;text-align:right;font-size:13px}
+h2{font-size:19px;margin:28px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+label,.lbl{display:block;font-size:12.5px;color:var(--muted);font-weight:500}
+input[type=text],input[type=email],input[type=tel],input[type=date],textarea{width:100%;margin-top:3px;padding:9px 10px;font:inherit;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:3px}
+input:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+.wide{grid-column:1/-1}
+.row{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.row b{font-weight:600}.row small{display:block;color:var(--muted)}
+.step{display:flex;align-items:center;gap:8px}
+.step button{width:36px;height:36px;border:1px solid var(--green);background:transparent;color:var(--green);font-size:20px;border-radius:3px;cursor:pointer}
+.step output{min-width:22px;text-align:center;font-weight:600}
+.amt{min-width:96px;text-align:right;font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse;margin-top:14px;font-variant-numeric:tabular-nums}
+td{padding:6px 0}td:last-child{text-align:right}
+tr.tot td{border-top:2px solid var(--green);font-weight:600;padding-top:9px}
+.gap td{text-align:left!important;padding:8px 0 2px;color:var(--green);font-family:Fraunces,Georgia,serif;font-weight:600}
+.chk{display:flex;gap:8px;align-items:flex-start;color:var(--ink);font-size:14px}
+.chk input{margin-top:4px;width:18px;height:18px;accent-color:var(--green)}
+.sla .chk{margin:0;white-space:nowrap;align-items:center}.sla .chk input{margin-top:0}
+.irow{display:grid;grid-template-columns:1fr 130px 130px auto;gap:10px;align-items:end;padding:8px 0;border-bottom:1px solid var(--line)}
+.irow .mini{margin:0 0 2px;padding:9px 10px}
+.radios{display:flex;gap:18px;flex-wrap:wrap;margin-top:6px}
+.radios .chk{align-items:center}.radios .chk input{margin-top:0}
+canvas{display:block;width:100%;height:140px;background:#fffdf5;border:1px solid var(--line);border-radius:3px;touch-action:none;margin-top:3px}
+.mini{margin-top:4px;padding:4px 10px;font:500 12px "Public Sans",sans-serif;border:1px solid var(--green);background:transparent;color:var(--green);border-radius:3px;cursor:pointer}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.btns button{padding:12px 20px;font:600 15px "Public Sans",sans-serif;border-radius:3px;cursor:pointer;border:1.5px solid var(--green);background:var(--green);color:#fbf7eb}
+.btns a{padding:12px 20px;font:600 15px "Public Sans",sans-serif;border-radius:3px;cursor:pointer;border:1.5px solid var(--green);background:var(--green);color:#fbf7eb;text-decoration:none;display:inline-block}
+.btns a.alt,.btns button.alt{background:transparent;color:var(--green)}
+.dopage,.terms{page-break-before:always;break-before:page}
+.terms ol,.mandate{padding-left:20px;font-size:13px}.terms li,.mandate li{margin-bottom:7px}
+.terms ol ol{list-style:none;padding-left:0;margin-top:6px}
+.accept{font-size:14px}
+.draft{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px;margin-top:16px}
+@media (max-width:640px){.irow{grid-template-columns:1fr 1fr}.irow label:first-child{grid-column:1/-1}.irow .mini{grid-column:1/-1;justify-self:start}}
+@media (max-width:520px){.row{grid-template-columns:1fr auto}.amt{grid-column:1/-1;text-align:left}.ref{margin-left:0;text-align:left}}
+@media print{
+html:root:root{--bg:#fff;--sheet:#fff;--ink:#111;--muted:#444;--green:#1f3d16;--gold:#b98410;--line:#999;--field:#fff;padding:0}
+.sheet{margin:0;padding:0;max-width:none;border-top:5px solid var(--gold)}
+.btns,.step button,.mini,#mailpanel,#mailmsg{display:none}.terms,.dopage{padding-top:0}
+input[type=text],input[type=email],input[type=tel],input[type=date],textarea{border:0;border-bottom:1px solid #777;border-radius:0;padding-left:0}
+@page{size:A4;margin:11mm 13mm}
+body{font-size:11.5px;line-height:1.35}
+header{flex-wrap:nowrap;padding-bottom:8px}.logo{width:165px;max-width:none}.ref{white-space:nowrap}
+header h1{font-size:16px!important}
+h2{font-size:15px;margin:10px 0 4px}
+.grid{gap:6px 10px}label,.lbl{font-size:10.5px}
+input[type=text],input[type=email],input[type=tel],input[type=date],textarea{padding-top:3px;padding-bottom:3px}
+textarea{height:30px;resize:none}
+.row{padding:4px 0}
+.irow{padding:3px 0;grid-template-columns:1fr 90px 90px}
+.sheet>.sub,.sla small{font-size:10px}.sla.row{padding:2px 0}
+#inet .sub{display:none}
+h2{margin:7px 0 3px}
+.sheet{padding-top:0}
+.chk{font-size:11px}
+.accept{margin-bottom:4px!important}
+canvas{height:50px}
+@page{margin:9mm 12mm}
+table{font-size:10.5px;line-height:1.15}h2{margin:5px 0 2px}canvas{height:38px}.row{padding:2px 0}.step output{border-bottom:0}.grid{grid-template-columns:repeat(4,1fr)}.wide{grid-column:1/-1}header h1{font-size:15px!important}
+textarea{height:24px}.grid{gap:4px 10px}.logo{width:140px}header{padding-bottom:5px}canvas{height:44px}.row{padding:3px 0}.sheet{border-top-width:4px}
+.step output{min-width:44px;border-bottom:1px solid #777;padding:0 6px}
+table{margin-top:3px}td{padding:1px 0}.tot td{padding-top:3px}.gap td{padding-top:4px}
+canvas{height:60px}
+.sub{font-size:10.5px}.accept{font-size:11px}
+.terms ol,.mandate{padding-left:26px;font-size:11px}.terms li,.mandate li{margin-bottom:4px}
+.terms ol ol{padding-left:0}
+}
+</style>
+</head>
+<body>
+<main class="sheet">
+<header>
+  <!-- LOGO: paste your original <img class="logo" ...> tag here -->
+  <div class="mark">Baobab Business</div>
+  <div><h1 style="font-size:22px">Cloud phone system order form and debit order authority</h1>
+  <div class="sub">Reg no. 2026/659916/07 · Not currently VAT registered · 50 Blommestein Avenue, Krugersdorp North · admin@baobabbusiness.co.za</div></div>
+  <div class="ref"><label>Order date<input type="date" id="odate"></label></div>
+</header>
+
+<h2>Customer details</h2>
+<div class="grid">
+  <label class="wide">Registered company name<input type="text" autocomplete="organization"></label>
+  <label>Trading name<input type="text"></label>
+  <label>Company reg. no.<input type="text"></label>
+  <label>VAT no. (if registered)<input type="text"></label>
+  <label>Contact person<input type="text" autocomplete="name"></label>
+  <label>Mobile<input type="tel" autocomplete="tel"></label>
+  <label>Email<input type="email" autocomplete="email"></label>
+  <label class="wide">Physical address<input type="text" autocomplete="street-address"></label>
+</div>
+
+<h2>Your seats</h2>
+<div id="rows">
+  <div class="row" data-price="140" data-seats="1"><div><b>Single seat</b><small>R140.00 per seat, per month</small></div><div class="step"><button type="button" aria-label="Fewer single seats">−</button><output>0</output><button type="button" aria-label="More single seats">+</button></div><div class="amt">R 0.00</div></div>
+  <div class="row" data-price="650" data-seats="5"><div><b>5-seat bundle</b><small>R650.00 per month (R130.00 per seat)</small></div><div class="step"><button type="button" aria-label="Fewer 5-seat bundles">−</button><output>0</output><button type="button" aria-label="More 5-seat bundles">+</button></div><div class="amt">R 0.00</div></div>
+  <div class="row" data-price="1200" data-seats="10"><div><b>10-seat bundle</b><small>R1,200.00 per month (R120.00 per seat)</small></div><div class="step"><button type="button" aria-label="Fewer 10-seat bundles">−</button><output>0</output><button type="button" aria-label="More 10-seat bundles">+</button></div><div class="amt">R 0.00</div></div>
+</div>
+<p class="sub" style="margin:8px 0 0">Month to month. <span id="seatcount">0 seats selected.</span></p>
+
+<h2>Support</h2>
+<div class="row sla">
+  <div><b>Support SLA (optional)</b><small>R250.00 per month. With the SLA, call-outs are not charged separately.</small></div>
+  <label class="chk"><input type="checkbox" id="sla"> Yes, add the SLA</label>
+  <div class="amt" id="slaamt">R 0.00</div>
+</div>
+<p class="sub" style="margin:8px 0 0">Without the SLA, call-outs are charged separately: <b>offsite call-out R250.00</b> and <b>on-site call-out R650.00</b>, each time.</p>
+
+<h2>Internet</h2>
+<label class="chk"><input type="checkbox" id="inet-on"> Add internet to this order</label>
+<div id="inet" hidden>
+  <p class="sub" style="margin:8px 0 0">Type in the package and price for each line. Packages depend on what is available at the customer's premises.</p>
+  <div id="irows"></div>
+  <button type="button" class="mini" id="iadd" style="margin-top:8px">+ Add another line</button>
+</div>
+
+<table>
+  <tr class="gap"><td colspan="2">Monthly</td></tr>
+  <tr><td>Seats</td><td id="m0">R 0.00</td></tr>
+  <tr><td>Support SLA</td><td id="ms">R 0.00</td></tr>
+  <tr><td>Internet</td><td id="mi">R 0.00</td></tr>
+  <tr class="tot"><td>Monthly total</td><td id="m1">R 0.00</td></tr>
+  <tr class="gap"><td colspan="2">Once-off</td></tr>
+  <tr><td>Installation and registration</td><td id="o0">R 2 000.00</td></tr>
+  <tr><td>Internet once-off charges</td><td id="oi">R 0.00</td></tr>
+  <tr class="tot"><td>Once-off total</td><td id="o1">R 2 000.00</td></tr>
+</table>
+<p class="sub" style="margin:6px 0 0">Baobab Business is not currently VAT registered, so no VAT is added to these prices.</p>
+
+<h2>Numbers and notes</h2>
+<div class="grid">
+  <label class="chk wide"><input type="checkbox" id="movenums"> Move our existing phone numbers to Baobab</label>
+  <label class="wide">Numbers to move, and anything else we should know<textarea rows="3"></textarea></label>
+</div>
+
+<h2>Acceptance</h2>
+<p class="accept" style="margin:0 0 10px">I confirm I am authorised to sign for the customer. I accept this order and the terms at the end of this document. Monthly fees are paid by debit order, using the debit order authority in this document.</p>
+<div class="grid">
+  <label>Full name<input type="text"></label>
+  <label>Position<input type="text"></label>
+  <label>Date signed<input type="date" id="sdate"></label>
+  <label>Baobab representative<input type="text"></label>
+  <div class="wide"><label for="sig">Signature (draw with a finger or mouse)</label><canvas id="sig"></canvas><button type="button" class="mini" data-clear="sig">Clear signature</button></div>
+</div>
+<div class="btns"><button type="button" id="print">Print or save as PDF</button><button type="button" id="mail">Email this order</button></div>
+<p class="sub" id="mailmsg" role="status" style="margin:8px 0 0"></p>
+<div id="mailpanel" hidden style="margin-top:14px">
+<div class="grid"><label>To<input type="text" id="mp-to" readonly></label><label>Subject<input type="text" id="mp-sub" readonly></label>
+<label class="wide">Message<textarea id="mp-body" rows="11" readonly style="height:auto"></textarea></label></div>
+<div class="btns"><a id="mp-web" target="_blank" rel="noopener">Open in Outlook on the web</a><a id="mp-app" class="alt">Open in mail app</a><button type="button" class="alt" id="mp-copy">Copy message</button></div>
+</div>
+
+<section class="dopage">
+<h2>Debit order authority</h2>
+<p class="sub" style="margin:0 0 10px">Creditor: Baobab Business, Reg no. 2026/659916/07, 50 Blommestein Avenue, Krugersdorp North.</p>
+<div class="grid">
+  <label class="wide">Account holder name<input type="text" autocomplete="off"></label>
+  <label>Account holder ID or company reg. no.<input type="text" autocomplete="off"></label>
+  <label>Bank<input type="text" autocomplete="off"></label>
+  <label>Account number<input type="text" inputmode="numeric" autocomplete="off"></label>
+  <label>Branch code<input type="text" inputmode="numeric" autocomplete="off"></label>
+  <div class="wide"><span class="lbl">Account type</span>
+    <div class="radios">
+      <label class="chk"><input type="radio" name="acct"> Cheque / current</label>
+      <label class="chk"><input type="radio" name="acct"> Savings</label>
+      <label class="chk"><input type="radio" name="acct"> Transmission</label>
+    </div></div>
+  <label>Collection day of the month<input type="text" placeholder="e.g. 1st"></label>
+  <label>First collection date<input type="date"></label>
+  <label>Monthly fee at signing<input type="text" id="doamt" readonly></label>
+</div>
+<h2 style="margin-top:20px">What I authorise</h2>
+<ol class="mandate">
+<li>I authorise Baobab Business, and its bank or payment service provider acting for it, to collect the amounts described below from the bank account above by debit order.</li>
+<li>The amounts are the monthly fees for the seats, any Support SLA and any internet on my order form, together with call charges, number rental, call-out fees and any other amounts I owe Baobab under the order and its terms. The amount can change when I add or remove seats, take or cancel the SLA, or use chargeable services. Baobab will tell me in writing before a change to the monthly fee takes effect.</li>
+<li>Collections happen on the collection day above. If that day is a weekend or public holiday, the debit goes through on the next business day.</li>
+<li>If a debit is unsuccessful, Baobab may present it again. I will pay bank charges Baobab incurs on a dishonoured debit.</li>
+<li>If I believe a debit is wrong, I will tell Baobab and my bank. Baobab will refund any amount it collected in error.</li>
+<li>This authority stays in force until I cancel it by giving Baobab one month's written notice. Cancelling it does not cancel my order or release me from amounts already owed.</li>
+<li>I confirm I am authorised to give this instruction on the account above, and that the details I have given are correct.</li>
+</ol>
+<div class="grid" style="margin-top:12px">
+  <label>Name of account holder or signatory<input type="text"></label>
+  <label>Signatory position<input type="text"></label>
+  <label>Date signed<input type="date" id="ddate"></label>
+  <div class="wide"><label for="sig2">Signature (draw with a finger or mouse)</label><canvas id="sig2"></canvas><button type="button" class="mini" data-clear="sig2">Clear signature</button></div>
+</div>
+</section>
+
+<section class="terms">
+<h2>Terms and conditions</h2>
+<ol>
+<li><b>Service.</b> Baobab Business ("Baobab") supplies hosted phone system seats and related voice services to the customer on this form.</li>
+<li><b>Term and notice.</b> The service runs month to month from the activation date. Either party may cancel with one month's written notice. Fees are payable until the notice period ends.</li>
+<li><b>Fees and VAT.</b> Baobab is not currently VAT registered, so the prices on this form include no VAT. If Baobab registers for VAT, it will add VAT at the prevailing rate and tell the customer in writing first. The once-off installation and registration fee is payable on acceptance of this order and is not refundable once setup starts.</li>
+<li><b>Not included.</b> Call charges, number rental and handsets are billed separately at Baobab's current rates, which are available on request. Internet is included only if it is written in the Internet section of this form.</li>
+<li><b>Changing seats.</b> Seats can be added or removed on one month's notice. Bundle pricing applies only to seats ordered as a bundle.</li>
+<li><b>Support and call-outs.</b> If the customer has opted in to the Support SLA on this form, the SLA fee is payable monthly and call-outs are not charged separately, on the terms of the SLA. If the customer has not opted in, each call-out is charged separately at R250.00 for an offsite call-out and R650.00 for an on-site call-out. Call-out fees are billed with the next monthly debit.</li>
+<li><b>Internet.</b> If the customer orders internet on this form, Baobab supplies it at the package and prices written in the Internet section. Availability depends on the customer's premises and the upstream provider. Speeds are "up to" speeds unless this form says otherwise. Internet is billed monthly with the other fees, and the notice period in clause 2 applies unless the description on this form states a different term. Once-off internet charges are payable on acceptance of this order.</li>
+<li><b>Payment.</b> Fees are billed monthly in advance and collected by debit order under the customer's signed debit order authority. Baobab may suspend the service after written notice of non-payment.</li>
+<li><b>Availability.</b> The service depends on the customer's internet connection and power. Both parties share responsibility for continuity during outages and load shedding. Uptime commitments, if any, are set out in the SLA.</li>
+<li><b>Acceptable use and security.</b> The customer will use the service lawfully and will not misuse it or resell it without written consent. The customer is responsible for keeping its passwords, devices and network secure.</li>
+<li><b>Personal information.</b> Each party will handle personal information in line with POPIA. Data processing terms are available on request.</li>
+<li><b>Liability.</b>
+  <ol>
+  <li>12.1 To the extent the law allows, Baobab is not liable for any indirect, special or consequential loss or damage, or for loss of profit, revenue, business, goodwill or data, however it arises.</li>
+  <li>12.2 Baobab's total liability to the customer for any claim arising from this agreement, whether in contract, delict or otherwise, is limited to the monthly fees the customer paid for the three months before the event that gave rise to the claim. The once-off installation fee and call charges do not count towards this amount.</li>
+  <li>12.3 Baobab is not liable for interruptions, poor call quality or loss of service caused by things outside its reasonable control. These include the customer's internet connection, power failures and load shedding, third-party networks and carriers, and events beyond either party's control.</li>
+  <li>12.4 Baobab does not guarantee that emergency numbers can be reached or located through the service. The customer must keep another way to reach emergency services.</li>
+  <li>12.5 Charges that arise from fraud or misuse of the customer's account, devices or credentials are for the customer's account, unless Baobab's gross negligence caused them.</li>
+  <li>12.6 The customer indemnifies Baobab against third-party claims arising from the customer's use of the service in breach of these terms.</li>
+  <li>12.7 Nothing in this clause limits liability that cannot be limited by law.</li>
+  </ol></li>
+<li><b>General.</b> This order and these terms form the whole agreement, together with any signed service level agreement and the debit order authority. South African law applies.</li>
+</ol>
+<p class="draft">Draft v0.3. The terms above need review by an attorney before this form is used with clients.</p>
+</section>
+</main>
+<script>
+(function(){
+var fmt=function(v){return 'R '+v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,' ')};
+var rows=[].slice.call(document.querySelectorAll('#rows .row')),$=function(i){return document.getElementById(i)};
+var SLA_FEE=250;
+var num=function(v){var n=parseFloat(String(v).replace(/[^0-9.,-]/g,'').replace(',','.'));return isNaN(n)?0:n};
+function ilines(){if(!$('inet-on').checked)return[];return[].slice.call(document.querySelectorAll('#irows .irow')).map(function(r){return{d:r.querySelector('.idesc').value.trim(),m:num(r.querySelector('.imon').value),o:num(r.querySelector('.ionce').value)}}).filter(function(l){return l.d||l.m||l.o})}
+function addLine(){var d=document.createElement('div');d.className='irow';
+d.innerHTML='<label>Package and details<input type="text" class="idesc" placeholder="e.g. 100/50 Mbps fibre, uncapped"></label><label>Monthly (R)<input type="text" class="imon" inputmode="decimal" placeholder="0.00"></label><label>Once-off (R)<input type="text" class="ionce" inputmode="decimal" placeholder="0.00"></label><button type="button" class="mini">Remove</button>';
+d.querySelector('.mini').onclick=function(){d.remove();calc()};$('irows').appendChild(d)}
+function calc(){var ex=0,seats=0;rows.forEach(function(r){var n=+r.querySelector('output').textContent;var t=n*+r.dataset.price;seats+=n*+r.dataset.seats;ex+=t;r.querySelector('.amt').textContent=fmt(t)});
+var s=$('sla').checked?SLA_FEE:0,im=0,io=0;
+ilines().forEach(function(l){im+=l.m;io+=l.o});
+$('slaamt').textContent=fmt(s);$('m0').textContent=fmt(ex);$('ms').textContent=fmt(s);$('mi').textContent=fmt(im);$('m1').textContent=fmt(ex+s+im);$('doamt').value=fmt(ex+s+im);
+$('oi').textContent=fmt(io);$('o1').textContent=fmt(2000+io);
+$('seatcount').textContent=seats+(seats===1?' seat':' seats')+' selected.'}
+rows.forEach(function(r){var b=r.querySelectorAll('button'),o=r.querySelector('output');
+b[0].onclick=function(){o.textContent=Math.max(0,+o.textContent-1);calc()};
+b[1].onclick=function(){o.textContent=Math.min(99,+o.textContent+1);calc()}});
+$('sla').onchange=calc;
+$('inet-on').onchange=function(){$('inet').hidden=!this.checked;if(this.checked&&!$('irows').children.length)addLine();calc()};
+$('iadd').onclick=function(){addLine();var i=$('irows').querySelectorAll('.idesc');i[i.length-1].focus()};
+$('irows').addEventListener('input',calc);
+calc();
+var today=new Date().toISOString().slice(0,10);$('odate').value=today;
+function pad(id,dateId){var c=$(id),x=c.getContext('2d'),d=false;
+function size(){var r=window.devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;c.width=w*r;c.height=h*r;x.scale(r,r);x.lineWidth=2;x.lineCap='round';x.strokeStyle='#1f3d16'}
+size();
+function pt(e){var b=c.getBoundingClientRect();return[e.clientX-b.left,e.clientY-b.top]}
+c.addEventListener('pointerdown',function(e){d=true;c.setPointerCapture(e.pointerId);var p=pt(e);x.beginPath();x.moveTo(p[0],p[1])});
+c.addEventListener('pointermove',function(e){if(!d)return;var p=pt(e);x.lineTo(p[0],p[1]);x.stroke()});
+['pointerup','pointercancel'].forEach(function(n){c.addEventListener(n,function(){d=false;if(!$(dateId).value)$(dateId).value=today})});
+document.querySelector('[data-clear="'+id+'"]').onclick=function(){x.clearRect(0,0,c.width,c.height)}}
+pad('sig','sdate');pad('sig2','ddate');
+$('print').onclick=function(){window.print()};
+var OWNER_EMAIL='baobab.business1@gmail.com';
+function field(t){var l=[].slice.call(document.querySelectorAll('label')).filter(function(e){return e.textContent.trim().indexOf(t)===0})[0];var i=l&&l.querySelector('input,textarea');return i?i.value.trim():''}
+$('mail').onclick=function(){
+var msg=$('mailmsg'),to=field('Email');
+if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(to)){msg.textContent='Add the client\u2019s email address under Customer details first.';return}
+var q=rows.map(function(r){return +r.querySelector('output').textContent});
+var il=ilines();
+if(!q[0]&&!q[1]&&!q[2]&&!il.length){msg.textContent='Choose at least one seat, bundle or internet line first.';return}
+var co=field('Registered company name'),who=field('Contact person'),L=[];
+L.push('Hi '+(who||'there')+',','','Thank you for your order with Baobab Business. Here is a summary:','');
+L.push('Company: '+co);
+if(field('Trading name'))L.push('Trading as: '+field('Trading name'));
+if(field('Company reg'))L.push('Reg no: '+field('Company reg'));
+if(field('VAT no'))L.push('VAT no: '+field('VAT no'));
+L.push('Contact: '+who+(field('Mobile')?' ('+field('Mobile')+')':''),'Address: '+field('Physical address'),'');
+L.push('Seats ordered: '+q[0]+' single, '+q[1]+' x 5-seat bundle, '+q[2]+' x 10-seat bundle ('+(q[0]+5*q[1]+10*q[2])+' seats)');
+L.push('Support SLA: '+($('sla').checked?'Yes ('+fmt(SLA_FEE)+' per month)':'No (call-outs charged separately: offsite R250.00, on-site R650.00)'));
+if(il.length){L.push('Internet:');il.forEach(function(l){L.push('  - '+(l.d||'Internet')+': '+fmt(l.m)+' per month'+(l.o?', once-off '+fmt(l.o):''))})}
+L.push('Monthly total: '+$('m1').textContent+' (no VAT \u2013 Baobab is not currently VAT registered)');
+L.push('Once-off total (installation and registration'+(il.length?', internet':'')+'): '+$('o1').textContent,'');
+var np=$('movenums').checked,nt=field('Numbers to move');
+L.push('Move existing numbers: '+(np?'Yes':'No')+(nt?' - '+nt:''));
+L.push('Month to month, one month\u2019s notice. Monthly fees are paid by debit order (authority included in the attached form).','');
+if(field('Full name'))L.push('Signed by: '+field('Full name')+(field('Position')?', '+field('Position'):'')+' on '+$('sdate').value,'');
+L.push('The signed order form, debit order authority and terms (PDF) are attached.','','Kind regards','Baobab Business');
+var sub='Baobab Business order - '+co,body=L.join('\r\n'),enc=encodeURIComponent,cc=OWNER_EMAIL?'&bcc='+enc(OWNER_EMAIL):'';
+$('mp-to').value=to+(OWNER_EMAIL?' (bcc '+OWNER_EMAIL+')':'');$('mp-sub').value=sub;$('mp-body').value=body;
+$('mp-app').href='mailto:'+enc(to).replace('%40','@')+'?subject='+enc(sub)+cc+'&body='+enc(body);
+$('mp-web').href='https://outlook.office.com/mail/deeplink/compose?to='+enc(to)+cc+'&subject='+enc(sub)+'&body='+enc(body);
+$('mailpanel').hidden=false;
+msg.textContent='Pick how to send it below. Save the form as a PDF first and attach it before you send.';
+$('mailpanel').scrollIntoView({behavior:'smooth',block:'nearest'})};
+$('mp-copy').onclick=function(){var t=$('mp-body'),ok=false;t.focus();t.select();try{ok=document.execCommand('copy')}catch(x){}
+$('mailmsg').textContent=ok?'Message copied. Paste it into a new email.':'Message selected. Press Ctrl+C (or Cmd+C) to copy it.'};
+
+})();
+</script>
+</body>
+</html>
